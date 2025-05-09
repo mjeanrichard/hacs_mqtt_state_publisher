@@ -1,1 +1,1 @@
-# Jean-Richard HACS Integrations
+# Mqtt State Publisher Integration for HomeAssistant

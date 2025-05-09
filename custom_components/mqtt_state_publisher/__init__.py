@@ -63,7 +63,12 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
         mybase = f"{base_topic}{entity_id.replace('.', '/')}/"
 
-        await mqtt.async_publish(hass, f"{mybase}state", payload_json, 1)
+        try:
+            await mqtt.client.async_publish(hass, f"{mybase}state", payload_json, 1)
+        except Exception:
+            _LOGGER.exception(
+                "Error publishing state for '%s'", mybase, stack_info=True
+            )
 
     @callback
     def _ha_started(hass: HomeAssistant) -> None:
